@@ -1,3 +1,18 @@
+% Function to Compute the R matrix: R(i,j) = \sum_{k} Pot(k)*Q(i,j,k), 
+% where Pot(k) denotes the value of the potential function at vertex index
+% k, Q(i,j,l)  = \int_{Mesh} b_i(x) b_j(x) b_k(x) dx. We assume that the
+% input mesh is a manifold triangular mesh without boundary.
+%-------------------------------------------------------------------------
+% Inputs: (1) F - Face matrix encoding the topology of the triangular mesh.
+%                 Assumed size: m x 3
+%         (2) V - Vertex coordinate matrix of the mesh.
+%                 Assumed size n x 3
+%         (3) Pot - Vector of Potential function values at the vertices
+%                 Assumed size n x 1
+% Output: (1) R - The R matrix of size n x n
+%         (2) C : Sparse cotangent stiffness matrix corresponding to the Laplace--Beltrami operator.
+%         (3) M : Sparse consistent mass matrix with local element matrix
+
 function [C, M, R] = computeLBOandR(F,V,pot)
 %   C : cotan stiffness matrix
 %   M : mass matrix
