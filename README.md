@@ -16,7 +16,7 @@ This function assembles the finite element matrices associated with the Laplaceâ
 |--------|-------------|
 | `C` | Sparse cotangent stiffness matrix corresponding to the discrete Laplaceâ€“Beltrami operator. |
 | `M` | Sparse consistent mass matrix obtained using P1 finite elements. |
-| `R` | Sparse potential-weighted matrix representing the discretisation of the potential term. |
+| `R` | Sparse potential-weighted(R) matrix representing the discretisation of the potential term. |
 
 ### Method
 
