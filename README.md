@@ -32,10 +32,10 @@ The function performs the following steps:
 
 | File | Description |
 |------|-------------|
-| `meshplot1.m` | Loads different meshes (`centaur3.off`, `Armadillo.off`). |
-| `proper_discretization.m` | Assigns the potential function. |
+| `load_mesh.m` | Loads different meshes (`centaur3.off`, `Armadillo.off`). |
+| `assign_potential.m` | Assigns the potential function. |
 | `computeLBOandR.m` | Computes the Laplace–Beltrami operator and the \(R\) matrices. |
-| `potentialmatrix.m` | Computes the eigenvalues and eigenvectors of the Hamiltonian operator. |
+| `eigenvalue_eigenvector_computation.m` | Computes the eigenvalues and eigenvectors of the Hamiltonian operator. |
 | `sparsity_plot.m` | Verifies the orthogonality of eigenfunctions obtained using different methods. |
 
 ### Reproducing the Results
