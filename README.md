@@ -42,11 +42,11 @@ The function performs the following steps:
 
 To reproduce the numerical results presented in the paper, execute the MATLAB scripts in the following order:
 
-1. Run `meshplot1.m` to load the desired triangular mesh (e.g., `centaur3.off` or `Armadillo.off`).
+1. Run `loadmesh.m` to load the desired triangular mesh (e.g., `centaur3.off` or `Armadillo.off`).
 
-2. Run `proper_discretization.m` to define the potential function on the selected mesh.
+2. Run `assign_potential.m` to define the potential function on the selected mesh.
 
-3. Run `potentialmatrix.m` to assemble the Hamiltonian operator and compute its eigenvalues and eigenvectors.
+3. Run `eigenvalue_eigenvector_computation.m` to assemble the Hamiltonian operator and compute its eigenvalues and eigenvectors.
 
 4. Run `sparsity_plot.m` to verify the orthogonality of the computed eigenfunctions and generate the corresponding plots.
 
