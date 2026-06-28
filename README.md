@@ -38,7 +38,7 @@ The function performs the following steps:
 | `potentialmatrix.m` | Computes the eigenvalues and eigenvectors of the Hamiltonian operator. |
 | `sparsity_plot.m` | Verifies the orthogonality of eigenfunctions obtained using different methods. |
 
-## Reproducing the Results
+### Reproducing the Results
 
 To reproduce the numerical results presented in the paper, execute the MATLAB scripts in the following order:
 
