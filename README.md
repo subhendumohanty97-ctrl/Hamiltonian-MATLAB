@@ -30,7 +30,7 @@ The function performs the following steps:
 
 ### Repository Structure
 
-meshplot1.m                      For loading different meshes 
+meshplot1.m                      For loading different meshes (centaur3.off/Armadillo.off)
 proper_discretization.m          For assigning potential function
 computeLBOandR.m                 For computing the matrices
 potentialmatrix.m                For computing the eigenvalues and eigenvectors, 
