@@ -25,7 +25,7 @@ The function performs the following steps:
 1. Assembles the global cotangent stiffness matrix.
 2. Simultaneously assembles the consistent mass matrix and the potential-weighted matrix(R) using a common sparsity pattern, thereby reducing memory allocation and improving computational efficiency.
 3. After evaluating all the matrices, one can compute the generalised eigenvalues and eigenvectors of the Hamiltonian operator \hat{H}_{prop} = (W+R)
-4. For orthogonality provided in the figure.png file, one can use the computed eigenvectors $\Psi_{prop}$ and then compute the Grammian matrix $\Psi_{prop}^{T}*A*\Psi_{prop}$. 
+4. For orthogonality provided in the figure.png file, one can use the computed eigenvectors $\Psi_{prop}$ and then compute the Grammian matrix $\Psi_{prop}^{T} * A * \Psi_{prop}$. 
 ### Usage
 
 ```matlab
