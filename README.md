@@ -38,6 +38,21 @@ The function performs the following steps:
 | `potentialmatrix.m` | Computes the eigenvalues and eigenvectors of the Hamiltonian operator. |
 | `sparsity_plot.m` | Verifies the orthogonality of eigenfunctions obtained using different methods. |
 
+## Reproducing the Results
+
+To reproduce the numerical results presented in the paper, execute the MATLAB scripts in the following order:
+
+1. Run `meshplot1.m` to load the desired triangular mesh (e.g., `centaur3.off` or `Armadillo.off`).
+
+2. Run `proper_discretization.m` to define the potential function on the selected mesh.
+
+3. Run `potentialmatrix.m` to assemble the Hamiltonian operator and compute its eigenvalues and eigenvectors.
+
+4. Run `sparsity_plot.m` to verify the orthogonality of the computed eigenfunctions and generate the corresponding plots.
+
+The generated figures correspond to the numerical results presented in the paper.
+
+
 ### Reproducing paper results
 Figure - 5,6 & 7 can be reproduced by the above usage
 
