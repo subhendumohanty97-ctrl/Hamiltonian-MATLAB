@@ -30,11 +30,13 @@ The function performs the following steps:
 
 ### Repository Structure
 
-meshplot1.m            -        For loading different meshes (centaur3.off/Armadillo.off)\\
-proper_discretization.m-        For assigning potential function\\
-computeLBOandR.m       -        For computing the matrices\\
-potentialmatrix.m      -        For computing the eigenvalues and eigenvectors\\ 
-sparsity_plot.m        -        For finding the orthogonality for different methods
+| File | Description |
+|------|-------------|
+| `meshplot1.m` | Loads different meshes (`centaur3.off`, `Armadillo.off`). |
+| `proper_discretization.m` | Assigns the potential function. |
+| `computeLBOandR.m` | Computes the Laplace–Beltrami operator and the \(R\) matrices. |
+| `potentialmatrix.m` | Computes the eigenvalues and eigenvectors of the Hamiltonian operator. |
+| `sparsity_plot.m` | Verifies the orthogonality of eigenfunctions obtained using different methods. |
 
 ### Reproducing paper results
 Figure - 5,6 & 7 can be reproduced by the above usage
