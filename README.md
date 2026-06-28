@@ -28,12 +28,19 @@ The function performs the following steps:
 4. For orthogonality provided in the figure.png file, one can use the computed eigenvectors $\Psi_{prop}$ and then compute the Grammian matrix $\Psi_{prop}^{T} * A * \Psi_{prop}$. 
 ### Usage
 
-```matlab
-[C, M, R] = computeLBOandR(F, V, pot);
-```
-### Applications
+### Repository Structure
 
-The assembled matrices can be used in:
-- Laplace–Beltrami eigenvalue problems.
-- Hamiltonian operator on triangulated surfaces.
-- Spectral geometry and shape analysis.
+meshplot1.m                      For loading different meshes 
+proper_discretization.m          For assigning potential function
+computeLBOandR.m                 For computing the matrices
+potentialmatrix.m                For computing the eigenvalues and eigenvectors, 
+sparsity_plot.m                  For finding the orthogonality for different methods
+
+### Reproducing paper results
+Figure - 5,6 & 7 can be reproduced by the above usage
+
+### Expected Runtime
+Approximately 2 minutes on a standard desktop computer with MATLAB R2024a.
+
+### Contact
+For questions regarding the implementation, or if required to produce any other figure, please contact the corresponding author.
