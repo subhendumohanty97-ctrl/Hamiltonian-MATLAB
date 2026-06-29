@@ -47,7 +47,7 @@ This will compute the Grammian matrix. Once the eigenvectors are computed by the
 
 | File | Description |
 |------|-------------|
-|----| Loads different meshes (e.g., `centaur3.off`, `Armadillo.off`) using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below). |
+|| Loads different meshes (e.g., `centaur3.off`, `Armadillo.off`) using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below). |
 | `assign_potential.m` | Assigns the potential function on the selected mesh. |
 | `computeLBOandR.m` | Computes the Laplace–Beltrami operator and the \(R\) matrices. |
 || Computes the eigenvalues and eigenvectors of the Hamiltonian operator using MATLAB's `eigs` function and stores the computed eigenvalues and eigenvectors (an example is shown below). |
