@@ -1,3 +1,5 @@
+This code computes the proposed Hamiltonian discretisation described in the paper and demonstrates the orthonormality of the discrete Hamiltonian operators relative to the existing method. 
+
 ## computeLBOandR
 
 This function assembles the finite element matrices associated with the Laplace–Beltrami operator on a triangular surface mesh using piecewise linear (P1) finite elements. Given the mesh connectivity, vertex coordinates, and a scalar potential defined at the mesh vertices, it computes the cotangent stiffness matrix, the consistent mass matrix, and the potential-weighted(R) matrix. These matrices can be used to discretise the Hamiltonian operator on triangular closed-manifold meshes. For details, please refer to the paper https://raw.githubusercontent.com/subhendumohanty97-ctrl/Hamiltonian-MATLAB/main/SMI2026_Preprint_HamiltonianOp.pdf
@@ -20,13 +22,22 @@ This function assembles the finite element matrices associated with the Laplace�
 
 ## assign_potential
 
-In the code, we can assign different potential functions to the vertices of the mesh, such as step, linear, strip, and random potentials.
+In the code, we can assign different potential functions to the mesh vertices, such as step, linear, strip, and random potentials.
+
+### Inputs
+
+| Parameter | Description |
+|-----------|-------------|
+| `F` | `m × 3` triangle connectivity matrix. Each row contains the indices of the three vertices of a triangular face. |
+| `V` | `n × 3` matrix containing the Cartesian coordinates of the mesh vertices. |
+| `pot` | `n × 1` vector of scalar potential values defined at the mesh vertices. |
+
 
 ## sparsity_plot 
 This will compute the Grammian matrix. Once the eigenvectors are computed by the eigs function, the sparsity plot code will normalise the eigenvectors and will compute the Grammian matrix.
 
 ### Method
-1. Assembles the global cotangent stiffness matrix.
+1. Assembles the global cotangent stiffness matrix W from the "computeLBOandR.m" code
 2. Simultaneously assembles the consistent mass matrix and the potential-weighted matrix(R) using a common sparsity pattern, thereby reducing memory allocation and improving computational efficiency.
 3. After evaluating all the matrices, one can compute the generalised eigenvalues and eigenvectors of the Hamiltonian operator H_{prop} = (W+R)
 4. For orthogonality provided in the figure.png file, one can use the computed eigenvectors $\Psi_{prop}$ and then compute the Grammian matrix $\Psi_{prop}^{T} * A * \Psi_{prop}$. 
@@ -35,7 +46,6 @@ This will compute the Grammian matrix. Once the eigenvectors are computed by the
 ### Repository Structure
 
 | File | Description |
-|------|-------------|
 ||Loads different meshes (`centaur3.off`, `Armadillo.off`) by using the "read_off" function developed by 
 Gabriel Peyre is available in MATLAB file exchange at the following link "https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m" and stores the vertices and faces (example shown below).|
 | `assign_potential.m` | Assigns the potential function. |
@@ -146,7 +156,6 @@ axis square;
 The generated figures correspond to the numerical results presented in the paper.
 
 
-### Reproducing paper results
 Figure - 5,6 & 7 can be reproduced by the above usage
 
 ### Expected Runtime
