@@ -20,27 +20,46 @@ This function assembles the finite element matrices associated with the Laplace�
 | `M` | Sparse consistent mass matrix obtained using P1 finite elements. |
 | `R` | Sparse potential-weighted(R) matrix representing the discretisation of the potential term. |
 
-## assign_potential
+## `assign_potential.m`
 
-In the code, we can assign different potential functions to the mesh vertices, such as step, linear, strip, and random potentials.
+This script assigns a scalar potential function to the mesh vertices. Different potential functions can be selected, including **step**, **linear**, **strip**, and **random**.
 
 ### Inputs
 
 | Parameter | Description |
 |-----------|-------------|
-| `F` | `m × 3` triangle connectivity matrix. Each row contains the indices of the three vertices of a triangular face. |
 | `V` | `n × 3` matrix containing the Cartesian coordinates of the mesh vertices. |
-| `pot` | `n × 1` vector of scalar potential values defined at the mesh vertices. |
+| `F` | `m × 3` triangle connectivity matrix. Each row contains the indices of the three vertices of a triangular face. |
+| `pot` | `n × 1` vector containing the scalar potential values assigned to the mesh vertices. |
+### Output
+
+| Parameter | Description |
+|-----------|-------------|
+| |Assigned Potential on the mesh with appropriate colour.|
 
 
-## sparsity_plot 
-This will compute the Grammian matrix. Once the eigenvectors are computed by the eigs function, the sparsity plot code will normalise the eigenvectors and will compute the Grammian matrix.
+## `sparsity_plot.m`
+
+This script normalises the computed eigenvectors, constructs the Gram matrix, and generates the sparsity plot to verify the orthogonality of the eigenfunctions.
+
+### Inputs
+
+| Parameter | Description |
+|-----------|-------------|
+| `eigvec` | Matrix whose columns are the eigenvectors of the Hamiltonian operator computed using MATLAB's `eigs` function. |
+
+### Outputs
+
+| Parameter | Description |
+|-----------|-------------|
+| `G` | Gram matrix of the normalised eigenvectors. |
+| Sparsity plot | Visualisation of the Gram matrix used to verify the orthogonality of the computed eigenfunctions. |
 
 ### Method
 1. Assembles the global cotangent stiffness matrix W from the "computeLBOandR.m" code
 2. Simultaneously assembles the consistent mass matrix and the potential-weighted matrix(R) using a common sparsity pattern, thereby reducing memory allocation and improving computational efficiency.
 3. After evaluating all the matrices, one can compute the generalised eigenvalues and eigenvectors of the Hamiltonian operator H_{prop} = (W+R)
-4. For orthogonality provided in the figure.png file, one can use the computed eigenvectors $\Psi_{prop}$ and then compute the Grammian matrix $\Psi_{prop}^{T} * A * \Psi_{prop}$. 
+4. For orthogonality provided in the figure.png file, one can use the computed eigenvectors $\Psi_{prop}$ and then compute the Grammian matrix $ G_{diag} = \Psi_{prop}^{T} * A * \Psi_{prop}$. 
 ### Usage
 1. Run "assign_potential.m" to define the potential function on the selected mesh.
 2. Run "eigenvalue_eigenvector_computation.m" to:
