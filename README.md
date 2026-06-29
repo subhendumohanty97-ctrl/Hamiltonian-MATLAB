@@ -44,14 +44,14 @@ This will compute the Grammian matrix. Once the eigenvectors are computed by the
 ### Usage
 
 ### Repository Structure
-|-----------|-------------|
+
 | File | Description |
-||Loads different meshes (`centaur3.off`, `Armadillo.off`) by using the "read_off" function developed by 
-Gabriel Peyre is available in MATLAB file exchange at the following link "https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m" and stores the vertices and faces (example shown below).|
-| `assign_potential.m` | Assigns the potential function. |
+|------|-------------|
+| `loadmesh.m` | Loads different meshes (e.g., `centaur3.off`, `Armadillo.off`) using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below). |
+| `assign_potential.m` | Assigns the potential function on the selected mesh. |
 | `computeLBOandR.m` | Computes the Laplace–Beltrami operator and the \(R\) matrices. |
-|| Compute the eigenvalues and eigenvectors of the Hamiltonian operator using eigs function and store them (example shown below)|
-| `sparsity_plot.m` | Verifies the orthogonality of eigenfunctions obtained using different methods. |
+| `eigenvalue_eigenvector_computation.m` | Computes the eigenvalues and eigenvectors of the Hamiltonian operator using MATLAB's `eigs` function and stores the computed eigenvalues and eigenvectors (an example is shown below). |
+| `sparsity_plot.m` | Verifies the orthogonality of the computed eigenfunctions obtained using different methods. |
 
 ### To reproduce Figure 5 presented in the paper, one can run the following command in the command window of MATLAB.
 
