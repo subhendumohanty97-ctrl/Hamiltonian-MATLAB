@@ -43,12 +43,10 @@ The function performs the following steps:
 1. Open MATLAB and set the repository folder as the current working directory.
 2. Run "loadmesh.m" and select the desired mesh (e.g., centaur3.off or Armadillo.off).
 3. Run "assign_potential.m" to define the potential function on the selected mesh.
-
-4.Run "eigenvalue_eigenvector_computation.m" to:
+4. Run "eigenvalue_eigenvector_computation.m" to:
    . construct the Laplace–Beltrami operator,
    . assemble the Hamiltonian operator,
-   . compute the eigenvalues and eigenvectors, and
-   
+   . compute the eigenvalues and eigenvectors, and   
 5. Run "sparsity_plot.m" to verify the orthogonality of the computed eigenfunctions and reproduce Figure - 5,6 & 7 in the paper.
 
 The generated figures correspond to the numerical results presented in the paper.
