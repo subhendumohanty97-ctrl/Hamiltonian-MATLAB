@@ -185,7 +185,7 @@ axis square;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ```
-%for figure-6 use the following command
+
 Figure - 5,6 & 7 can be reproduced by the above usage
 
 ### Expected Runtime
