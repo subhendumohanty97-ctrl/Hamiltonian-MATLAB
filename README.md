@@ -73,7 +73,7 @@ This script normalises the computed eigenvectors, constructs the Gram matrix, an
 |------|-------------|
 | `plot_mesh_with_potential.m` |Loads different meshes (e.g., `centaur3.off`, `Armadillo.off`) using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below). Assigns the potential function on the selected mesh. |
 | `computeLBOandR.m` | Computes the Laplace–Beltrami operator and the \(R\) matrices. |
-| `sparsity_plot.m` |Computes the eigenvalues and eigenvectors of the Hamiltonian operator using MATLAB's `eigs` function and stores the computed eigenvalues and eigenvectors (an example is shown below).Verifies the orthogonality of the computed eigenfunctions obtained using different methods.|
+| `sparsity_plot.m` |Computes the eigenvalues and eigenvectors of the Hamiltonian operator using MATLAB's `eigs` function and stores the computed eigenvalues and eigenvectors (an example is shown below). Verifies the orthogonality of the computed eigenfunctions obtained using different methods.|
 
 ### To reproduce Figure 5 presented in the paper, run the following MATLAB commands.
 
@@ -106,7 +106,7 @@ for c = centers
 end
 
 % Compute LBO and R.
-[W, A, R] = computeLBOandR(fMat, vMat, Pot);
+[C, M, R] = computeLBOandR(fMat, vMat, Pot);
 
 patch('Faces', fMat, ...
       'Vertices', vMat, ...
@@ -124,40 +124,40 @@ colorbar;
 view(180,270);
 
 % Compute eigenvalues and eigenvectors.
-H = sparse(W + R);
-H1 = sparse(W + (A .* Pot'));
+Hprop = sparse(W + R);
+Hdiag = sparse(W + (A .* Pot'));
 
 lumped_mass = sum(A,2);
-H2 = sparse(W + diag(lumped_mass .* Pot));
+Hlump = sparse(W + diag(lumped_mass .* Pot));
 
 Al = diag(lumped_mass);
 
-[V3, D3] = eigs(H, A, 200, 'smallestabs');
-[V2, D2] = eigs(H1, A, 200, 'smallestabs');
-[V4, D4] = eigs(H2, Al, 200, 'smallestabs');
+[Vprop, Dprop] = eigs(H, A, 200, 'smallestabs');
+[Vdiag, Ddiag] = eigs(H1, A, 200, 'smallestabs');
+[Vlump, Dlump] = eigs(H2, Al, 200, 'smallestabs');
 
-[evala, ind] = sort(diag(D2));
-eveca = V2(:, ind);
+[eval_diag, ind] = sort(diag(Ddiag));
+evec_diag = V2(:, ind);
 
-[evalr, ind] = sort(diag(D3));
-evecr = V3(:, ind);
+[eval_prop, ind] = sort(diag(Dprop));
+evec_prop = Vprop(:, ind);
 
-[evall, ind] = sort(diag(D4));
-evecl = V4(:, ind);
+[eval_lump, ind] = sort(diag(Dlump));
+evec_lump = Vlump(:, ind);
 
 % Compute sparsity.
 for k = 1:100
-    norm_factor = sqrt(evecr(:,k)' * A * evecr(:,k));
-    evecr(:,k) = evecr(:,k) / norm_factor;
+    norm_factor = sqrt(evec_prop(:,k)' * A * evec_prop(:,k));
+    evec_prop(:,k) = evec_prop(:,k) / norm_factor;
 end
 
 for k = 1:100
-    norm_factor = sqrt(eveca(:,k)' * A * eveca(:,k));
-    eveca(:,k) = eveca(:,k) / norm_factor;
+    norm_factor = sqrt(evec_diag(:,k)' * A * evec_diag(:,k));
+    evec_diag(:,k) = evec_diag(:,k) / norm_factor;
 end
 
-Ir = evecr' * A * evecr;
-Ia = eveca' * A * eveca;
+Ir = evec_prop' * A * evec_prop;
+Ia = evec_diag' * A * evec_diag;
 
 error_thresh = [1e-10, 1e-9, 1e-8, 1e-7, 1e-6, ...
                 1e-5, 1e-4, 1e-3, 1e-2, 1e-1];
