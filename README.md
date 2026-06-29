@@ -1,4 +1,4 @@
-This code computes the proposed Hamiltonian discretisation described in the paper and demonstrates the orthonormality of the discrete Hamiltonian operators relative to the existing method. 
+This code computes the proposed Hamiltonian discretisation described in the paper and demonstrates the orthonormality of the discrete Hamiltonian operators relative to the existing method. Loads different meshes (e.g., `centaur3.off`, `Armadillo.off`) using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below).
 
 ## `computeLBOandR.m`
 
