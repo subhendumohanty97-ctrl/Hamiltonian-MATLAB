@@ -43,6 +43,7 @@ The function performs the following steps:
 1. Open MATLAB and set the repository folder as the current working directory.
 2. Run loadmesh.m and select the desired mesh (e.g., centaur3.off or Armadillo.off).
 3. Run assign_potential.m to define the potential function on the selected mesh.
+
 4.Run eigenvalue_eigenvector_computation.m to:
    . construct the Laplace–Beltrami operator,
    . assemble the Hamiltonian operator,
