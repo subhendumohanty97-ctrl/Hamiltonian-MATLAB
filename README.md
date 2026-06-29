@@ -36,10 +36,10 @@ This will compute the Grammian matrix. Once the eigenvectors are computed by the
 
 | File | Description |
 |------|-------------|
-|Loads different meshes (`centaur3.off`, `Armadillo.off`) by using the "read_off" function and store the vertices and faces (example shown below) |
+||Loads different meshes (`centaur3.off`, `Armadillo.off`) by using the "read_off" function and store the vertices and faces (example shown below) |
 | `assign_potential.m` | Assigns the potential function. |
 | `computeLBOandR.m` | Computes the Laplace–Beltrami operator and the \(R\) matrices. |
-| Compute the eigenvalues and eigenvectors of the Hamiltonian operator using eigs function and store them (example shown below)|
+|| Compute the eigenvalues and eigenvectors of the Hamiltonian operator using eigs function and store them (example shown below)|
 | `sparsity_plot.m` | Verifies the orthogonality of eigenfunctions obtained using different methods. |
 
 ### To reproduce Figure 5 presented in the paper, one can run the following command in the command window of MATLAB.
