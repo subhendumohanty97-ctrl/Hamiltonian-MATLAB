@@ -125,16 +125,16 @@ view(180,270);
 
 % Compute eigenvalues and eigenvectors.
 Hprop = sparse(C + R);
-Hdiag = sparse(C + (A .* Pot'));
+Hdiag = sparse(C + (M .* Pot'));
 
-lumped_mass = sum(A,2);
+lumped_mass = sum(M,2);
 Hlump = sparse(C + diag(lumped_mass .* Pot));
 
-Al = diag(lumped_mass);
+Ml = diag(lumped_mass);
 
-[Vprop, Dprop] = eigs(H, A, 200, 'smallestabs');
-[Vdiag, Ddiag] = eigs(H1, A, 200, 'smallestabs');
-[Vlump, Dlump] = eigs(H2, Al, 200, 'smallestabs');
+[Vprop, Dprop] = eigs(H, M, 200, 'smallestabs');
+[Vdiag, Ddiag] = eigs(H1, M, 200, 'smallestabs');
+[Vlump, Dlump] = eigs(H2, Ml, 200, 'smallestabs');
 
 [eval_diag, ind] = sort(diag(Ddiag));
 evec_diag = V2(:, ind);
