@@ -124,11 +124,11 @@ colorbar;
 view(180,270);
 
 % Compute eigenvalues and eigenvectors.
-Hprop = sparse(W + R);
-Hdiag = sparse(W + (A .* Pot'));
+Hprop = sparse(C + R);
+Hdiag = sparse(C + (A .* Pot'));
 
 lumped_mass = sum(A,2);
-Hlump = sparse(W + diag(lumped_mass .* Pot));
+Hlump = sparse(C + diag(lumped_mass .* Pot));
 
 Al = diag(lumped_mass);
 
