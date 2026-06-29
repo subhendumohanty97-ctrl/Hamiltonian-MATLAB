@@ -132,9 +132,9 @@ Hlump = sparse(C + diag(lumped_mass .* Pot));
 
 Ml = diag(lumped_mass);
 
-[Vprop, Dprop] = eigs(H, M, 200, 'smallestabs');
-[Vdiag, Ddiag] = eigs(H1, M, 200, 'smallestabs');
-[Vlump, Dlump] = eigs(H2, Ml, 200, 'smallestabs');
+[Vprop, Dprop] = eigs(Hprop, M, 200, 'smallestabs');
+[Vdiag, Ddiag] = eigs(Hdiag, M, 200, 'smallestabs');
+[Vlump, Dlump] = eigs(Hlump, Ml, 200, 'smallestabs');
 
 [eval_diag, ind] = sort(diag(Ddiag));
 evec_diag = V2(:, ind);
@@ -147,12 +147,12 @@ evec_lump = Vlump(:, ind);
 
 % Compute sparsity.
 for k = 1:100
-    norm_factor = sqrt(evec_prop(:,k)' * A * evec_prop(:,k));
+    norm_factor = sqrt(evec_prop(:,k)' * M * evec_prop(:,k));
     evec_prop(:,k) = evec_prop(:,k) / norm_factor;
 end
 
 for k = 1:100
-    norm_factor = sqrt(evec_diag(:,k)' * A * evec_diag(:,k));
+    norm_factor = sqrt(evec_diag(:,k)' * M * evec_diag(:,k));
     evec_diag(:,k) = evec_diag(:,k) / norm_factor;
 end
 
