@@ -71,11 +71,9 @@ This script normalises the computed eigenvectors, constructs the Gram matrix, an
 
 | File | Description |
 |------|-------------|
-|| Loads different meshes (e.g., `centaur3.off`, `Armadillo.off`) using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below). |
 | `plot_mesh_with_potential.m` |Loads different meshes (e.g., `centaur3.off`, `Armadillo.off`) using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below). Assigns the potential function on the selected mesh. |
 | `computeLBOandR.m` | Computes the Laplace–Beltrami operator and the \(R\) matrices. |
-|| Computes the eigenvalues and eigenvectors of the Hamiltonian operator using MATLAB's `eigs` function and stores the computed eigenvalues and eigenvectors (an example is shown below). |
-| `sparsity_plot.m` | Verifies the orthogonality of the computed eigenfunctions obtained using different methods. |
+| `sparsity_plot.m` |Computes the eigenvalues and eigenvectors of the Hamiltonian operator using MATLAB's `eigs` function and stores the computed eigenvalues and eigenvectors (an example is shown below).Verifies the orthogonality of the computed eigenfunctions obtained using different methods.|
 
 ### To reproduce Figure 5 presented in the paper, run the following MATLAB commands.
 
