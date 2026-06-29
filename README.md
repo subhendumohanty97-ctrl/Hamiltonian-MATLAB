@@ -38,17 +38,17 @@ The function performs the following steps:
 | `eigenvalue_eigenvector_computation.m` | Computes the eigenvalues and eigenvectors of the Hamiltonian operator. |
 | `sparsity_plot.m` | Verifies the orthogonality of eigenfunctions obtained using different methods. |
 
-### Reproducing the Results (Example)
+### To reproduce the numerical results presented in the paper, follow the steps below.
 
-To reproduce the numerical results presented in the paper, execute the MATLAB scripts in the following order:
-
-1. Run `loadmesh.m` to load the desired triangular mesh (e.g., `centaur3.off` or `Armadillo.off`).
-
-2. Run `assign_potential.m` to define the potential function on the selected mesh.
-
-3. Run `eigenvalue_eigenvector_computation.m` to assemble the Hamiltonian operator and compute its eigenvalues and eigenvectors.
-
-4. Run `sparsity_plot.m` to verify the orthogonality of the computed eigenfunctions and generate the corresponding plots.
+1. Open MATLAB and set the repository folder as the current working directory.
+2. Run loadmesh.m and select the desired mesh (e.g., centaur3.off or Armadillo.off).
+3. Run assign_potential.m to define the potential function on the selected mesh.
+4.Run eigenvalue_eigenvector_computation.m to:
+   . construct the Laplace–Beltrami operator,
+   . assemble the Hamiltonian operator,
+   . compute the eigenvalues and eigenvectors, and
+   
+5. Run sparsity_plot.m to verify the orthogonality of the computed eigenfunctions and reproduce Figure - 5,6 & 7 in the paper.
 
 The generated figures correspond to the numerical results presented in the paper.
 
