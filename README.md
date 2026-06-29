@@ -20,7 +20,7 @@ This function assembles the finite element matrices associated with the Laplace�
 | `M` | Sparse consistent mass matrix obtained using P1 finite elements. |
 | `R` | Sparse potential-weighted(R) matrix representing the discretisation of the potential term. |
 
-## `assign_potential.m`
+## `plot_mesh_with_potential.m`
 
 This script assigns a scalar potential function to the mesh vertices. Different potential functions can be selected, including **step**, **linear**, **strip**, and **random**.
 
@@ -72,7 +72,7 @@ This script normalises the computed eigenvectors, constructs the Gram matrix, an
 | File | Description |
 |------|-------------|
 || Loads different meshes (e.g., `centaur3.off`, `Armadillo.off`) using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below). |
-| `assign_potential.m` | Assigns the potential function on the selected mesh. |
+| `plot_mesh_with_potential.m` | Assigns the potential function on the selected mesh. |
 | `computeLBOandR.m` | Computes the Laplace–Beltrami operator and the \(R\) matrices. |
 || Computes the eigenvalues and eigenvectors of the Hamiltonian operator using MATLAB's `eigs` function and stores the computed eigenvalues and eigenvectors (an example is shown below). |
 | `sparsity_plot.m` | Verifies the orthogonality of the computed eigenfunctions obtained using different methods. |
