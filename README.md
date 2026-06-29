@@ -156,8 +156,8 @@ for k = 1:100
     evec_diag(:,k) = evec_diag(:,k) / norm_factor;
 end
 
-Ir = evec_prop' * A * evec_prop;
-Ia = evec_diag' * A * evec_diag;
+Ir = evec_prop' * M * evec_prop;
+Ia = evec_diag' * M * evec_diag;
 
 error_thresh = [1e-10, 1e-9, 1e-8, 1e-7, 1e-6, ...
                 1e-5, 1e-4, 1e-3, 1e-2, 1e-1];
