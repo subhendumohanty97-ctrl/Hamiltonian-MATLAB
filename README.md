@@ -137,7 +137,7 @@ Ml = diag(lumped_mass);
 [Vlump, Dlump] = eigs(Hlump, Ml, 200, 'smallestabs');
 
 [eval_diag, ind] = sort(diag(Ddiag));
-evec_diag = V2(:, ind);
+evec_diag = Vdiag(:, ind);
 
 [eval_prop, ind] = sort(diag(Dprop));
 evec_prop = Vprop(:, ind);
