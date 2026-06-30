@@ -22,7 +22,7 @@ This function assembles the finite element matrices associated with the Laplaceâ
 
 ## `plot_mesh_with_potential.m`
 
-This script assigns a scalar potential function to the mesh vertices. Different potential functions can be selected, including **step**, **linear**, **strip**, and **random**.
+This script assigns a scalar potential function to the mesh vertices. Different potential functions can be selected, including **step**, **linear**, **strip**, and **random**. The function plots the mesh with the user-given potential using colours.
 
 ### Inputs
 
