@@ -1,34 +1,17 @@
-function [Pot, C, M, R] = plot_mesh_with_potential(vMat, fMat)
+function plot_mesh_with_potential(vMat, fMat, Pot)
 
-% Assign a strip potential function on the mesh.
+%PLOT_MESH_WITH_POTENTIAL Visualize a triangular mesh with a given potential.
+%
+% Inputs:
+%   vMat - n x 3 matrix of mesh vertices.
+%   fMat - m x 3 matrix of triangle connectivity.
+%   Pot  - n x 1 vector of potential values at the mesh vertices.
+%
+% Output:
+%   Displays the mesh colored according to the potential values.
 
-% Extract the y-coordinates of the vertices.
-y = vMat(:,2);
-
-% Normalize the y-coordinates to the interval [0,1].
-ymin = min(y);
-ymax = max(y);
-y_norm = (y - ymin) / (ymax - ymin);
-
-% Initialize the potential.
-Pot = zeros(size(y));
-
-% Define strip width.
-w = 0.08;      % 8% thickness
-
-% Define strip centers (bottom, middle, top).
-centers = [0.25, 0.5, 0.75];
-
-% Assign the strip potential.
-for c = centers
-    Pot(abs(y_norm - c) <= w) = 10;
-end
-
-% Compute the Laplace–Beltrami operator and R matrix.
-[C, M, R] = computeLBOandR(fMat, vMat, Pot);
-
-% Visualize the potential on the mesh.
 figure;
+
 patch('Faces', fMat, ...
       'Vertices', vMat, ...
       'FaceVertexCData', Pot, ...
