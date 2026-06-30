@@ -77,7 +77,26 @@ This script normalises the computed eigenvectors using the given inner product m
 vMat = v';
 fMat = f';
 
-plot_mesh_with_potential(vMat, fMat);
+y = vMat(:,2);
+
+% normalize to [0,1]
+ymin = min(y);
+ymax = max(y);
+y_norm = (y - ymin) / (ymax - ymin);
+
+Pot = zeros(size(y));
+
+% define strip width
+w = 0.08;   % 8% thickness
+
+% strip centers (bottom, middle, top)
+centers = [0.25, 0.5, 0.75];
+
+for c = centers
+    Pot(abs(y_norm - c) <= w) = 10;   % mu = 10
+end
+
+plot_mesh_with_potential(vMat, fMat, Pot);
 
 % Compute eigenvalues and eigenvectors.
 Hprop = sparse(C + R);
@@ -102,7 +121,7 @@ evec_prop = Vprop(:, ind);
 evec_lump = Vlump(:, ind);
 
 % Compute sparsity.
-sparsity_plot
+sparsity_plot(evec_prop, evec_diag, M);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ```
 ### To reproduce Figure 6 presented in the paper, run the following MATLAB commands.
