@@ -1,4 +1,4 @@
-function [Pot, W, A, R] = plot_mesh_with_potential(vMat, fMat)
+function [Pot, C, M, R] = plot_mesh_with_potential(vMat, fMat)
 
 % Assign a strip potential function on the mesh.
 
@@ -25,7 +25,7 @@ for c = centers
 end
 
 % Compute the Laplace–Beltrami operator and R matrix.
-[W, A, R] = computeLBOandR(fMat, vMat, Pot);
+[C, M, R] = computeLBOandR(fMat, vMat, Pot);
 
 % Visualize the potential on the mesh.
 figure;
