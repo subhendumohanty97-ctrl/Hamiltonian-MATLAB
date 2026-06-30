@@ -120,65 +120,34 @@ sparsity_plot(evec_prop, evec_diag, M);
 [v,f] = read_off('Armadillo.off');
 vMat = v';
 fMat = f';
-
-% Assign the potential function.
-load('random_and_step_potential.mat');
-%This potential is available in the list of files.
-Pot = pot;
-% Define strip width.
-%w = 0.08;   % 8% thickness
-
-% Strip centers (bottom, middle, top).
-%centers = [0.25, 0.5, 0.75];
-
-%for c = centers
-    %Pot(abs(y_norm - c) <= w) = 10;   % mu = 10
-%end
-
-% Compute LBO and R.
-[C, M, R] = computeLBOandR(fMat, vMat, Pot);
-
-patch('Faces', fMat, ...
-      'Vertices', vMat, ...
-      'FaceVertexCData', Pot, ...
-      'FaceColor', 'interp', ...
-      'EdgeColor', 'k', ...
-      'EdgeAlpha', 0.1);
-
-axis square;
-xlabel('X');
-ylabel('Y');
-zlabel('Z');
-grid on;
-colorbar;
-view(180,270);
-
+%Define the strip potential function
+% Initialise the potential with zeros.
+Pot = zeros(size(vMat,1),1);
+% Assign random values only to the upper half (y >= 0).
+idx = (vMat(:,2) >= 21.41);
+Pot(idx) = rand(sum(idx),1);
+%Plot the potential function
+plot_mesh_with_potential(vMat, fMat, Pot);
+%Compute matrices
+computeLBOandR(fMat,vMat,Pot);
 % Compute eigenvalues and eigenvectors.
 Hprop = sparse(C + R);
 Hdiag = sparse(C + (M .* Pot'));
-
 lumped_mass = sum(M,2);
 Hlump = sparse(C + diag(lumped_mass .* Pot));
-
 Ml = diag(lumped_mass);
-
 [Vprop, Dprop] = eigs(Hprop, M, 100, 'smallestabs');
 [Vdiag, Ddiag] = eigs(Hdiag, M, 100, 'smallestabs');
 [Vlump, Dlump] = eigs(Hlump, Ml, 100, 'smallestabs');
-
 [eval_diag, ind] = sort(diag(Ddiag));
 evec_diag = Vdiag(:, ind);
-
 [eval_prop, ind] = sort(diag(Dprop));
 evec_prop = Vprop(:, ind);
-
 [eval_lump, ind] = sort(diag(Dlump));
 evec_lump = Vlump(:, ind);
-
 % Compute sparsity.
-sparsity_plot
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-```
+sparsity_plot(evec_prop, evec_diag, M);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%```
 
 ### Acknowledgement
 The "centaur" mesh data is from the TOSCA dataset (Bronstein, A. M., Bronstein, M. M., & Kimmel, R. (2008). Numerical Geometry of Non-Rigid Shapes. Springer.), "Armadillo" mesh from the Stanford 3D scanning repository (Krishnamurthy, V., & Levoy, M. (1996). Fitting smooth surfaces to dense polygon meshes. In Proceedings of the 23rd annual conference on Computer graphics and interactive techniques (pp. 313-324)).
