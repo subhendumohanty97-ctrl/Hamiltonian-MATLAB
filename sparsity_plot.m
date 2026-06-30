@@ -1,4 +1,6 @@
-% Compute sparsity.
+function [Ir, Ia, nnz_vals, nnz_vals1] = sparsity_plot(evec_prop, evec_diag, M)
+
+% Normalize the eigenvectors.
 for k = 1:100
     norm_factor = sqrt(evec_prop(:,k)' * M * evec_prop(:,k));
     evec_prop(:,k) = evec_prop(:,k) / norm_factor;
@@ -9,30 +11,34 @@ for k = 1:100
     evec_diag(:,k) = evec_diag(:,k) / norm_factor;
 end
 
+% Compute the Gram matrices.
 Ir = evec_prop' * M * evec_prop;
 Ia = evec_diag' * M * evec_diag;
 
+% Error thresholds.
 error_thresh = [1e-10, 1e-9, 1e-8, 1e-7, 1e-6, ...
                 1e-5, 1e-4, 1e-3, 1e-2, 1e-1];
 
 nnz_vals = zeros(size(error_thresh));
 nnz_vals1 = zeros(size(error_thresh));
 
+% Count nonzero entries above each threshold.
 for i = 1:length(error_thresh)
     threshold = error_thresh(i);
     nnz_vals(i) = nnz(abs(Ir) >= threshold);
     nnz_vals1(i) = nnz(abs(Ia) >= threshold);
 end
 
-% Plotting.
+% Plot the sparsity comparison.
 figure;
 plot(log10(error_thresh), nnz_vals, 'k-s', ...
      log10(error_thresh), nnz_vals1, 'k-o', ...
      'LineWidth', 1.5);
 
 legend('Proposed', 'Diag');
+xlabel('log_{10}(Error Threshold)');
+ylabel('Number of Entries');
 grid on;
 axis square;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-```
+end
