@@ -185,7 +185,8 @@ vMat = v';
 fMat = f';
 
 % Assign the potential function.
-load('pot4armadillo');
+load('random_and_step_potential.mat');
+%This potential is available in the list of files.
 Pot = pot;
 % Define strip width.
 %w = 0.08;   % 8% thickness
