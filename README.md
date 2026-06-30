@@ -47,6 +47,7 @@ This script normalises the computed eigenvectors, constructs the Gram matrix, an
 | Parameter | Description |
 |-----------|-------------|
 | `eigvec` | Matrix whose columns are the eigenvectors of the Hamiltonian operator computed using MATLAB's `eigs` function. |
+|`M`|Mass matrix|
 
 ### Outputs
 
@@ -59,7 +60,7 @@ This script normalises the computed eigenvectors, constructs the Gram matrix, an
 1. Assembles the global cotangent stiffness matrix W from the "computeLBOandR.m" code
 2. Simultaneously assembles the consistent mass matrix and the potential-weighted matrix(R) using a common sparsity pattern, thereby reducing memory allocation and improving computational efficiency.
 3. After evaluating all the matrices, one can compute the generalised eigenvalues and eigenvectors of the Hamiltonian operator H_{prop} = (W+R)
-4. For orthogonality provided in the figure.png file, one can use the computed eigenvectors $\Psi_{prop}$ and then compute the Grammian matrix $ G_{diag} = \Psi_{prop}^{T} * A * \Psi_{prop}$. 
+4. For orthogonality provided in the figure.png file, one can use the computed eigenvectors $\Psi_{prop}$ and then compute the Grammian matrix $ G_{diag} = \Psi_{prop}^{T} * M * \Psi_{prop}$. 
 ### Usage
 1. Run "assign_potential.m" to define the potential function on the selected mesh.
 2. Run "eigenvalue_eigenvector_computation.m" to:
