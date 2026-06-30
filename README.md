@@ -76,52 +76,76 @@ This script normalises the computed eigenvectors using the given inner product m
 [v,f] = read_off('Armadillo.off');
 vMat = v';
 fMat = f';
-
 y = vMat(:,2);
-
 % normalize to [0,1]
 ymin = min(y);
 ymax = max(y);
 y_norm = (y - ymin) / (ymax - ymin);
-
 Pot = zeros(size(y));
-
 % define strip width
 w = 0.08;   % 8% thickness
-
 % strip centers (bottom, middle, top)
 centers = [0.25, 0.5, 0.75];
-
 for c = centers
-    Pot(abs(y_norm - c) <= w) = 10;   % mu = 10
+Pot(abs(y_norm - c) <= w) = 10;   % mu = 10
 end
-
 plot_mesh_with_potential(vMat, fMat, Pot);
-
+computeLBOandR(fMat,vMat,Pot);
 % Compute eigenvalues and eigenvectors.
 Hprop = sparse(C + R);
 Hdiag = sparse(C + (M .* Pot'));
-
 lumped_mass = sum(M,2);
 Hlump = sparse(C + diag(lumped_mass .* Pot));
-
 Ml = diag(lumped_mass);
-
 [Vprop, Dprop] = eigs(Hprop, M, 100, 'smallestabs');
 [Vdiag, Ddiag] = eigs(Hdiag, M, 100, 'smallestabs');
 [Vlump, Dlump] = eigs(Hlump, Ml, 100, 'smallestabs');
-
 [eval_diag, ind] = sort(diag(Ddiag));
 evec_diag = Vdiag(:, ind);
-
 [eval_prop, ind] = sort(diag(Dprop));
 evec_prop = Vprop(:, ind);
-
 [eval_lump, ind] = sort(diag(Dlump));
 evec_lump = Vlump(:, ind);
-
 % Compute sparsity.
 sparsity_plot(evec_prop, evec_diag, M);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Read the mesh by using read_off (e.g., centaur3.off or Armadillo.off).
+[v,f] = read_off('Armadillo.off');
+vMat = v';
+fMat = f';
+y = vMat(:,2);
+% normalize to [0,1]
+ymin = min(y);
+ymax = max(y);
+y_norm = (y - ymin) / (ymax - ymin);
+Pot = zeros(size(y));
+% define strip width
+w = 0.08;   % 8% thickness
+% strip centers (bottom, middle, top)
+centers = [0.25, 0.5, 0.75];
+for c = centers
+Pot(abs(y_norm - c) <= w) = 10;   % mu = 10
+end
+plot_mesh_with_potential(vMat, fMat, Pot);
+[C,M,R] = computeLBOandR(fMat,vMat,Pot);
+% Compute eigenvalues and eigenvectors.
+Hprop = sparse(C + R);
+Hdiag = sparse(C + (M .* Pot'));
+lumped_mass = sum(M,2);
+Hlump = sparse(C + diag(lumped_mass .* Pot));
+Ml = diag(lumped_mass);
+[Vprop, Dprop] = eigs(Hprop, M, 100, 'smallestabs');
+[Vdiag, Ddiag] = eigs(Hdiag, M, 100, 'smallestabs');
+[Vlump, Dlump] = eigs(Hlump, Ml, 100, 'smallestabs');
+[eval_diag, ind] = sort(diag(Ddiag));
+evec_diag = Vdiag(:, ind);
+[eval_prop, ind] = sort(diag(Dprop));
+evec_prop = Vprop(:, ind);
+[eval_lump, ind] = sort(diag(Dlump));
+evec_lump = Vlump(:, ind);
+% Compute sparsity.
+sparsity_plot(evec_prop, evec_diag, M);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ```
 ### To reproduce Figure 6 presented in the paper, run the following MATLAB commands.
