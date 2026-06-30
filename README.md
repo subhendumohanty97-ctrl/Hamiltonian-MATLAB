@@ -77,43 +77,7 @@ This script normalises the computed eigenvectors using the given inner product m
 vMat = v';
 fMat = f';
 
-% Assign the potential function.
-y = vMat(:,2);
-
-% Normalize to [0,1].
-ymin = min(y);
-ymax = max(y);
-y_norm = (y - ymin) / (ymax - ymin);
-
-Pot = zeros(size(y));
-
-% Define strip width.
-w = 0.08;   % 8% thickness
-
-% Strip centers (bottom, middle, top).
-centers = [0.25, 0.5, 0.75];
-
-for c = centers
-    Pot(abs(y_norm - c) <= w) = 10;   % mu = 10
-end
-
-% Compute LBO and R.
-[C, M, R] = computeLBOandR(fMat, vMat, Pot);
-
-patch('Faces', fMat, ...
-      'Vertices', vMat, ...
-      'FaceVertexCData', Pot, ...
-      'FaceColor', 'interp', ...
-      'EdgeColor', 'k', ...
-      'EdgeAlpha', 0.1);
-
-axis square;
-xlabel('X');
-ylabel('Y');
-zlabel('Z');
-grid on;
-colorbar;
-view(180,270);
+plot_mesh_with_potential(vMat, fMat)
 
 % Compute eigenvalues and eigenvectors.
 Hprop = sparse(C + R);
