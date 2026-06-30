@@ -75,6 +75,7 @@ This script normalises the computed eigenvectors using the given inner product m
 [v,f] = read_off('Armadillo.off');
 vMat = v';
 fMat = f';
+%Define the strip potential function
 y = vMat(:,2);
 % normalize to [0,1]
 ymin = min(y);
@@ -88,7 +89,9 @@ centers = [0.25, 0.5, 0.75];
 for c = centers
 Pot(abs(y_norm - c) <= w) = 10;   % mu = 10
 end
+%Plot the potential function
 plot_mesh_with_potential(vMat, fMat, Pot);
+%Compute matrices
 computeLBOandR(fMat,vMat,Pot);
 % Compute eigenvalues and eigenvectors.
 Hprop = sparse(C + R);
