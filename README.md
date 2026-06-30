@@ -113,6 +113,7 @@ sparsity_plot(evec_prop, evec_diag, M);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ```
 ### To reproduce Figure 6 presented in the paper, run the following MATLAB commands.
+
 ```matlab
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
