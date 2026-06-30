@@ -147,7 +147,8 @@ evec_prop = Vprop(:, ind);
 evec_lump = Vlump(:, ind);
 % Compute sparsity.
 sparsity_plot(evec_prop, evec_diag, M);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%```
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+```
 
 ### Acknowledgement
 The "centaur" mesh data is from the TOSCA dataset (Bronstein, A. M., Bronstein, M. M., & Kimmel, R. (2008). Numerical Geometry of Non-Rigid Shapes. Springer.), "Armadillo" mesh from the Stanford 3D scanning repository (Krishnamurthy, V., & Levoy, M. (1996). Fitting smooth surfaces to dense polygon meshes. In Proceedings of the 23rd annual conference on Computer graphics and interactive techniques (pp. 313-324)).
