@@ -1,4 +1,4 @@
-This code computes the proposed Hamiltonian discretisation described in the paper and demonstrates the orthonormality of the discrete Hamiltonian operators relative to the existing method. Loads different meshes (e.g., `centaur3.off`, `Armadillo.off`) using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below).
+This repository contains code and data for reproducing results from our paper: A finite element method based discretisation of the Hamiltonian operator on triangular meshes, Shape Modeling International 2026. The main contribution in this repository is the code" ComputeLBOandR.m that computes the Cotan, Mass and R matrix as described in the paper for any input closed manifold triangular mesh. Triangular meshes stored in the Object file format (.off) can be read using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below). Other functions include plot_mesh_with_potential.m that can be used to plot a triangular mesh with vertices coloured using the input potential function, and sparsity_plot.m that can be used to verify the (non-) orthogonality of a set of eigenvectors with respect to the inner product defined by the input Mass matrix. Read below for a detailed description.
 
 ## `computeLBOandR.m`
 
@@ -19,10 +19,11 @@ This function assembles the finite element matrices associated with the Laplace�
 | `C` | Sparse cotangent stiffness matrix corresponding to the discrete Laplace–Beltrami operator. |
 | `M` | Sparse consistent mass matrix obtained using P1 finite elements. |
 | `R` | Sparse potential-weighted(R) matrix representing the discretisation of the potential term. |
+### Usage: [C,M,R] = computeLBOandR(F,V,pot)
 
 ## `plot_mesh_with_potential.m`
 
-This script assigns a scalar potential function to the mesh vertices. Different potential functions can be selected, including **step**, **linear**, **strip**, and **random**. The function plots the mesh with the user-given potential using colours.
+This function plots the mesh with the user-given potential via colours. It linearly interpolates the colours between vertices.
 
 ### Inputs
 
@@ -35,47 +36,36 @@ This script assigns a scalar potential function to the mesh vertices. Different 
 
 | Parameter | Description |
 |-----------|-------------|
-| |Assigned Potential on the mesh with appropriate colour.|
-
+| Figure |Assigned Potential on the mesh with appropriate colour.|
+### Usage: plot_mesh_with_potential(V,F,pot)
 
 ## `sparsity_plot.m`
 
-This script normalises the computed eigenvectors, constructs the Gram matrix, and generates the sparsity plot to verify the orthogonality of the eigenfunctions.
+This script normalises the computed eigenvectors using the given inner product matrix, constructs the Gram matrix, and generates the sparsity plot to verify the orthogonality of the eigenfunctions.
 
 ### Inputs
 
 | Parameter | Description |
 |-----------|-------------|
 | `eigvec` | Matrix whose columns are the eigenvectors of the Hamiltonian operator computed using MATLAB's `eigs` function. |
-|`M`|Mass matrix|
+|`M`|Mass matrix. Given vectors $u$ and $v$, the inner product used is $u^T M v$ |
 
 ### Outputs
 
 | Parameter | Description |
 |-----------|-------------|
 | `G` | Gram matrix of the normalised eigenvectors. |
-| Sparsity plot | Visualisation of the Gram matrix used to verify the orthogonality of the computed eigenfunctions. |
+| Figure (Sparsity plot) | Visualisation of the Gram matrix used to verify the orthogonality of the computed eigenfunctions. |
+### Usage: G = sparsity_plot(eigvec,M)
 
 ### Method
-1. Assembles the global cotangent stiffness matrix W from the "computeLBOandR.m" code
-2. Simultaneously assembles the consistent mass matrix and the potential-weighted matrix(R) using a common sparsity pattern, thereby reducing memory allocation and improving computational efficiency.
-3. After evaluating all the matrices, one can compute the generalised eigenvalues and eigenvectors of the Hamiltonian operator H_{prop} = (W+R)
-4. For orthogonality provided in the figure.png file, one can use the computed eigenvectors $\Psi_{prop}$ and then compute the Grammian matrix $ G_{diag} = \Psi_{prop}^{T} * M * \Psi_{prop}$. 
-### Usage
-1. Run "assign_potential.m" to define the potential function on the selected mesh.
-2. Run "eigenvalue_eigenvector_computation.m" to:
-   . construct the Laplace–Beltrami operator,
-   . assemble the Hamiltonian operator,
-   . compute the eigenvalues and eigenvectors, and   
-3. Run "sparsity_plot.m" to verify the orthogonality of the computed eigenfunctions and reproduce Figure - 5,6 & 7 in the paper.
-### Repository Structure
-
-| File | Description |
-|------|-------------|
-| `plot_mesh_with_potential.m` |Loads different meshes (e.g., `centaur3.off`, `Armadillo.off`) using the `read_off` function developed by Gabriel Peyré. The function is available on the MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/files/toolbox_graph/read_off.m. The script stores the mesh vertices and faces (an example is shown below). Running `plot_mesh_with_potential.m` generates a plot of the mesh with the assigned potential.|
-| `computeLBOandR.m` | Computes the Laplace–Beltrami operator and the \(R\) matrices. |
-| `sparsity_plot.m` |Computes the eigenvalues and eigenvectors of the Hamiltonian operator using MATLAB's `eigs` function and stores the computed eigenvalues and eigenvectors (an example is shown below). Verifies the orthogonality of the computed eigenfunctions obtained using different methods.|
-
+1. Read a mesh file (all codes assumes closed, triangular, manifold meshes) to obtain vertices and faces in matrices $V$ and $F$, of sizes $n \times 3$ and $m \times 3$, resp.
+2. Design a potential function $pot$, a vector of size $n \times 1$. 
+3. Compute cotan, mass and R matrix using: `[C,M,R] = computeLBOandR(F,V,pot);`
+4. The diagonal entries of the lumped mass matrix can be computed by `M_l = sum(M,2);`
+5. The proposed, diag and lumped Hamiltonian discretizations can be computed by `Hprop = W+R; Hdiag=W+M*diag(pot); Hlump = W + diag(M_l.*pot);`
+6. You can then compute eigenvalues and eigenvectors of these matrices using the MATLAB function `eig` and work with the corresponding spectral basis. For example use `sparsity_plot` to check orthogonality.
+    
 ### To reproduce Figure 5 presented in the paper, run the following MATLAB commands.
 
 ```matlab
@@ -184,11 +174,11 @@ axis square;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ```
+### To reproduce Figure 6 presented in the paper, run the following MATLAB commands.
 
-Figure - 5,6 & 7 can be reproduced by the above usage
 
-### Expected Runtime
-Approximately 2 minutes on a standard desktop computer with MATLAB R2024a.
+### Acknowledgement
+The "centaur" mesh data is from the TOSCA dataset (Bronstein, A. M., Bronstein, M. M., & Kimmel, R. (2008). Numerical Geometry of Non-Rigid Shapes. Springer.), "Armadillo" mesh from the Stanford 3D scanning repository (Krishnamurthy, V., & Levoy, M. (1996). Fitting smooth surfaces to dense polygon meshes. In Proceedings of the 23rd annual conference on Computer graphics and interactive techniques (pp. 313-324)).
 
 ### Contact
 For questions regarding the implementation, or if required to produce any other figure, please contact the corresponding author.
