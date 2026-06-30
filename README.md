@@ -124,9 +124,9 @@ Hlump = sparse(C + diag(lumped_mass .* Pot));
 
 Ml = diag(lumped_mass);
 
-[Vprop, Dprop] = eigs(Hprop, M, 200, 'smallestabs');
-[Vdiag, Ddiag] = eigs(Hdiag, M, 200, 'smallestabs');
-[Vlump, Dlump] = eigs(Hlump, Ml, 200, 'smallestabs');
+[Vprop, Dprop] = eigs(Hprop, M, 100, 'smallestabs');
+[Vdiag, Ddiag] = eigs(Hdiag, M, 100, 'smallestabs');
+[Vlump, Dlump] = eigs(Hlump, Ml, 100, 'smallestabs');
 
 [eval_diag, ind] = sort(diag(Ddiag));
 evec_diag = Vdiag(:, ind);
@@ -225,9 +225,9 @@ Hlump = sparse(C + diag(lumped_mass .* Pot));
 
 Ml = diag(lumped_mass);
 
-[Vprop, Dprop] = eigs(Hprop, M, 200, 'smallestabs');
-[Vdiag, Ddiag] = eigs(Hdiag, M, 200, 'smallestabs');
-[Vlump, Dlump] = eigs(Hlump, Ml, 200, 'smallestabs');
+[Vprop, Dprop] = eigs(Hprop, M, 100, 'smallestabs');
+[Vdiag, Ddiag] = eigs(Hdiag, M, 100, 'smallestabs');
+[Vlump, Dlump] = eigs(Hlump, Ml, 100, 'smallestabs');
 
 [eval_diag, ind] = sort(diag(Ddiag));
 evec_diag = Vdiag(:, ind);
