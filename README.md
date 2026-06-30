@@ -77,7 +77,7 @@ This script normalises the computed eigenvectors using the given inner product m
 vMat = v';
 fMat = f';
 
-plot_mesh_with_potential(vMat, fMat)
+plot_mesh_with_potential(vMat, fMat);
 
 % Compute eigenvalues and eigenvectors.
 Hprop = sparse(C + R);
