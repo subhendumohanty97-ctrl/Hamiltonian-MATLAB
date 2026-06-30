@@ -92,7 +92,7 @@ end
 %Plot the potential function
 plot_mesh_with_potential(vMat, fMat, Pot);
 %Compute matrices
-computeLBOandR(fMat,vMat,Pot);
+[C,M,R] = computeLBOandR(fMat,vMat,Pot);
 % Compute eigenvalues and eigenvectors.
 Hprop = sparse(C + R);
 Hdiag = sparse(C + (M .* Pot'));
@@ -130,7 +130,7 @@ Pot(idx) = rand(sum(idx),1);
 %Plot the potential function
 plot_mesh_with_potential(vMat, fMat, Pot);
 %Compute matrices
-computeLBOandR(fMat,vMat,Pot);
+[C,M,R] = computeLBOandR(fMat,vMat,Pot);
 % Compute eigenvalues and eigenvectors.
 Hprop = sparse(C + R);
 Hdiag = sparse(C + (M .* Pot'));
