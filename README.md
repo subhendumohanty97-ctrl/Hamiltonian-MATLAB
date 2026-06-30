@@ -176,7 +176,105 @@ axis square;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ```
 ### To reproduce Figure 6 presented in the paper, run the following MATLAB commands.
+```matlab
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Read the mesh by using read_off (e.g., centaur3.off or Armadillo.off).
+[v,f] = read_off('Armadillo.off');
+vMat = v';
+fMat = f';
+
+% Assign the potential function.
+load('pot4armadillo');
+Pot = pot;
+% Define strip width.
+%w = 0.08;   % 8% thickness
+
+% Strip centers (bottom, middle, top).
+%centers = [0.25, 0.5, 0.75];
+
+%for c = centers
+    %Pot(abs(y_norm - c) <= w) = 10;   % mu = 10
+%end
+
+% Compute LBO and R.
+[C, M, R] = computeLBOandR(fMat, vMat, Pot);
+
+patch('Faces', fMat, ...
+      'Vertices', vMat, ...
+      'FaceVertexCData', Pot, ...
+      'FaceColor', 'interp', ...
+      'EdgeColor', 'k', ...
+      'EdgeAlpha', 0.1);
+
+axis square;
+xlabel('X');
+ylabel('Y');
+zlabel('Z');
+grid on;
+colorbar;
+view(180,270);
+
+% Compute eigenvalues and eigenvectors.
+Hprop = sparse(C + R);
+Hdiag = sparse(C + (M .* Pot'));
+
+lumped_mass = sum(M,2);
+Hlump = sparse(C + diag(lumped_mass .* Pot));
+
+Ml = diag(lumped_mass);
+
+[Vprop, Dprop] = eigs(Hprop, M, 200, 'smallestabs');
+[Vdiag, Ddiag] = eigs(Hdiag, M, 200, 'smallestabs');
+[Vlump, Dlump] = eigs(Hlump, Ml, 200, 'smallestabs');
+
+[eval_diag, ind] = sort(diag(Ddiag));
+evec_diag = Vdiag(:, ind);
+
+[eval_prop, ind] = sort(diag(Dprop));
+evec_prop = Vprop(:, ind);
+
+[eval_lump, ind] = sort(diag(Dlump));
+evec_lump = Vlump(:, ind);
+
+% Compute sparsity.
+for k = 1:100
+    norm_factor = sqrt(evec_prop(:,k)' * M * evec_prop(:,k));
+    evec_prop(:,k) = evec_prop(:,k) / norm_factor;
+end
+
+for k = 1:100
+    norm_factor = sqrt(evec_diag(:,k)' * M * evec_diag(:,k));
+    evec_diag(:,k) = evec_diag(:,k) / norm_factor;
+end
+
+Ir = evec_prop' * M * evec_prop;
+Ia = evec_diag' * M * evec_diag;
+
+error_thresh = [1e-10, 1e-9, 1e-8, 1e-7, 1e-6, ...
+                1e-5, 1e-4, 1e-3, 1e-2, 1e-1];
+
+nnz_vals = zeros(size(error_thresh));
+nnz_vals1 = zeros(size(error_thresh));
+
+for i = 1:length(error_thresh)
+    threshold = error_thresh(i);
+    nnz_vals(i) = nnz(abs(Ir) >= threshold);
+    nnz_vals1(i) = nnz(abs(Ia) >= threshold);
+end
+
+% Plotting.
+figure;
+plot(log10(error_thresh), nnz_vals, 'k-s', ...
+     log10(error_thresh), nnz_vals1, 'k-o', ...
+     'LineWidth', 1.5);
+
+legend('Proposed', 'Diag');
+grid on;
+axis square;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+```
 
 ### Acknowledgement
 The "centaur" mesh data is from the TOSCA dataset (Bronstein, A. M., Bronstein, M. M., & Kimmel, R. (2008). Numerical Geometry of Non-Rigid Shapes. Springer.), "Armadillo" mesh from the Stanford 3D scanning repository (Krishnamurthy, V., & Levoy, M. (1996). Fitting smooth surfaces to dense polygon meshes. In Proceedings of the 23rd annual conference on Computer graphics and interactive techniques (pp. 313-324)).
