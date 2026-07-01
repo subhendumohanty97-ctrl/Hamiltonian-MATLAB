@@ -104,6 +104,7 @@ Hdiag = sparse(C + (M .* Pot'));
 lumped_mass = sum(M,2);
 Hlump = sparse(C + diag(lumped_mass .* Pot));
 Ml = diag(lumped_mass);
+%%Computed here for 200 eigenfunctions
 [Vprop, Dprop] = eigs(Hprop, M, 200, 'smallestabs');
 [Vdiag, Ddiag] = eigs(Hdiag, M, 200, 'smallestabs');
 [Vlump, Dlump] = eigs(Hlump, Ml, 200, 'smallestabs');
