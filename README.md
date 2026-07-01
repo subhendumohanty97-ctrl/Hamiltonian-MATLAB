@@ -72,22 +72,27 @@ This script normalises the computed eigenvectors using the given inner product m
 ```matlab
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Read the mesh by using read_off (e.g., centaur3.off or Armadillo.off).
-[v,f] = read_off('Armadillo.off');
+[v,f] =  read_off('Armadillo.off');
 vMat = v';
 fMat = f';
 %Define the strip potential function
 y = vMat(:,2);
+
 % normalize to [0,1]
 ymin = min(y);
 ymax = max(y);
 y_norm = (y - ymin) / (ymax - ymin);
+
 Pot = zeros(size(y));
+
 % define strip width
 w = 0.08;   % 8% thickness
+
 % strip centers (bottom, middle, top)
 centers = [0.25, 0.5, 0.75];
+
 for c = centers
-Pot(abs(y_norm - c) <= w) = 10;   % mu = 10
+    Pot(abs(y_norm - c) <= w) = 10;   % mu = 10
 end
 %Plot the potential function
 plot_mesh_with_potential(vMat, fMat, Pot);
@@ -99,9 +104,9 @@ Hdiag = sparse(C + (M .* Pot'));
 lumped_mass = sum(M,2);
 Hlump = sparse(C + diag(lumped_mass .* Pot));
 Ml = diag(lumped_mass);
-[Vprop, Dprop] = eigs(Hprop, M, 100, 'smallestabs');
-[Vdiag, Ddiag] = eigs(Hdiag, M, 100, 'smallestabs');
-[Vlump, Dlump] = eigs(Hlump, Ml, 100, 'smallestabs');
+[Vprop, Dprop] = eigs(Hprop, M, 200, 'smallestabs');
+[Vdiag, Ddiag] = eigs(Hdiag, M, 200, 'smallestabs');
+[Vlump, Dlump] = eigs(Hlump, Ml, 200, 'smallestabs');
 [eval_diag, ind] = sort(diag(Ddiag));
 evec_diag = Vdiag(:, ind);
 [eval_prop, ind] = sort(diag(Dprop));
